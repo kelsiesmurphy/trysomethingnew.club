@@ -1,30 +1,22 @@
-import { Geist, Geist_Mono } from "next/font/google"
-
-import "@workspace/ui/globals.css"
-import { Providers } from "@/components/providers"
-
-const fontSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-})
+import "@workspace/ui/globals.css";
+import { Providers } from "@/components/providers";
+import Plausible from "@/lib/plausible";
+import DevTools from "@workspace/ui/components/dev-tools";
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
-      >
+      <head>
+        <Plausible />
+      </head>
+      <body className={`font-sans antialiased `}>
         <Providers>{children}</Providers>
+        {process.env.NODE_ENV === "development" && <DevTools />}
       </body>
     </html>
-  )
+  );
 }
