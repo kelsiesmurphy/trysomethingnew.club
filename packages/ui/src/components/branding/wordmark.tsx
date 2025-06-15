@@ -2,7 +2,7 @@ export default function WordMark({ height }: { height?: number }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      height={360}
+      height={height || 360}
       viewBox="0 0 1228 360"
       fill="none"
     >
