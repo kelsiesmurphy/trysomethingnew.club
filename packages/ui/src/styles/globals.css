@@ -125,3 +125,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .font-publica {
+    font-family: "Publica Sans Round", sans-serif;
+  }
+}
