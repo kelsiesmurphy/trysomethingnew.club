@@ -3,6 +3,8 @@ import "../styles/fonts.css";
 import { Providers } from "@/components/providers";
 import Plausible from "@/lib/plausible";
 import DevTools from "@workspace/ui/components/dev-tools";
+import SkipToContent from "@/components/skip-to-content";
+import Header from "@/components/header/header";
 
 export default function RootLayout({
   children,
@@ -14,8 +16,12 @@ export default function RootLayout({
       <head>
         <Plausible />
       </head>
-      <body className="font-publica antialiased selection:bg-primary selection:text-white min-h-screen bg-[url('/background-grid.svg')] bg-top bg-no-repeat bg-fixed">
-        <Providers>{children}</Providers>
+      <body className="font-publica antialiased px-4 selection:bg-primary selection:text-white min-h-screen bg-[url('/background-grid.svg')] bg-top bg-no-repeat bg-fixed">
+        <SkipToContent />
+        <main className="flex flex-col items-center">
+          <Header />
+          <Providers>{children}</Providers>
+        </main>
         {process.env.NODE_ENV === "development" && <DevTools />}
       </body>
     </html>
