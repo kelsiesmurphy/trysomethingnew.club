@@ -1,12 +1,24 @@
-import { Button } from "@workspace/ui/components/button"
+import CMSError from "@/components/cms-error";
+import { getPageBySlug } from "@/lib/contentful/queries";
+import Hero from "@/components/hero";
+import { findComponentById } from "@/lib/contentful/helpers";
 
-export default function Page() {
+export default async function Page() {
+  const page = await getPageBySlug("/");
+
+  if (!page) {
+    return <CMSError />;
+  }
+
+  const heroEntry = findComponentById(
+    page.pageContent,
+    "homepage-hero",
+    "heroComponent"
+  );
+
   return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello World</h1>
-        <Button size="sm">Button</Button>
-      </div>
+    <div className="flex flex-col min-h-svh">
+      {heroEntry && <Hero content={heroEntry} />}
     </div>
-  )
+  );
 }
