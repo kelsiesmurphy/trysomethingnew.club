@@ -1,9 +1,7 @@
-// components/hero.tsx
-import { TypeHeroComponentSkeleton } from "@/lib/contentful/types";
-import { Entry } from "contentful";
+import { HeroComponent } from "@/lib/contentful/simplified-types";
 import Image from "next/image";
 
-export default function Hero({ content }: { content: any }) {
+export default function Hero({ content }: { content: HeroComponent }) {
   return (
     <section className="flex container flex-col pt-12 md:pt-24 pb-10 gap-8">
       <div className="max-w-5xl flex flex-col gap-8">
@@ -19,11 +17,11 @@ export default function Hero({ content }: { content: any }) {
       <div className="overflow-hidden w-full object-cover">
         <Image
           priority
-          src={`https:${content.image?.fields.file.url}`}
+          src={`https:${content.image?.url}`}
           height={516}
           width={1400}
           className="object-cover overflow-hidden rounded-lg"
-          alt={content.image?.fields.description}
+          alt={content.image?.description || "Hero image"}
         />
       </div>
     </section>

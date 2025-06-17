@@ -1,29 +1,27 @@
-import { Entry } from "contentful";
 import { contentfulClient } from "./client";
-import { homePageMock } from "../mocks/homepageMocks";
+import { homePageMock } from "@/lib/mocks/homepageMocks";
+import { normalizePage } from "@/lib/contentful/normalizePage";
+import { Page } from "@/lib/contentful/simplified-types";
 import { TypePageSkeleton } from "./types";
 
-export const getPageBySlug = async (
-  slug: string
-): Promise<Entry<TypePageSkeleton> | null> => {
+export const getPageBySlug = async (slug: string): Promise<Page | null> => {
   const useCMS = process.env.USE_CMS === "true";
 
   if (!useCMS) {
     console.warn("Using fallback content for slug:", slug);
-    return { fields: homePageMock } as unknown as Entry<TypePageSkeleton>;
+    return homePageMock;
   }
 
   try {
     const response = await contentfulClient.getEntries<TypePageSkeleton>({
       content_type: "page",
       "fields.slug": slug,
-      limit: 1,
       include: 10,
     });
 
-    if (!response.items.length) return null;
+    if (!response.items.length || !response.items[0]) return null;
 
-    return response.items[0] ?? null;
+    return normalizePage(response.items[0]);
   } catch (error) {
     console.error(`Error fetching page "${slug}" from Contentful:`, error);
     return null;

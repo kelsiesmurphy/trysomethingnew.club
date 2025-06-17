@@ -1,34 +1,27 @@
+// app/page.tsx or wherever this is
+
 import CMSError from "@/components/cms-error";
 import { getPageBySlug } from "@/lib/contentful/queries";
 import Hero from "@/components/hero";
-
-import type {
-  TypePageSkeleton,
-  TypeHeroComponentSkeleton,
-} from "@/lib/contentful/types";
-import type { Entry } from "contentful";
-import { isEntry } from "@/lib/contentful/helpers";
+import { PageContentBlock } from "@/lib/contentful/simplified-types";
+import { findComponentById } from "@/lib/contentful/helpers";
 
 export default async function Page() {
-  const pageContent = (await getPageBySlug("/")) as Entry<TypePageSkeleton>;
+  const page = await getPageBySlug("/");
 
-  if (!pageContent || !Array.isArray(pageContent.fields.pageContent)) {
+  if (!page) {
     return <CMSError />;
   }
 
-  const heroEntry = pageContent.fields.pageContent.find(
-    (component): component is Entry<TypeHeroComponentSkeleton> =>
-      isEntry<TypeHeroComponentSkeleton>(component) &&
-      component.fields.id === "homepage-hero"
+  const heroEntry = findComponentById(
+    page.pageContent,
+    "homepage-hero",
+    "heroComponent"
   );
-
-  if (!heroEntry) {
-    return <CMSError />;
-  }
 
   return (
     <div className="flex flex-col min-h-svh">
-      <Hero content={heroEntry.fields} />
+      {heroEntry && <Hero content={heroEntry} />}
     </div>
   );
 }
