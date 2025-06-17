@@ -40,8 +40,6 @@ function isResolvedEntry(entry: any) {
 export function normalizeHeroComponent(entry: any): PageContentBlock {
   const { id, heading, subheading, buttons, image } = entry.fields;
 
-  console.log(buttons);
-
   return {
     type: "heroComponent",
     id: getText(id),
