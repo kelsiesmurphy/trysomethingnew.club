@@ -15,7 +15,10 @@ export default function NavigationItems() {
         <Link href="/faqs">FAQs</Link>
       </Button>
       <Button asChild>
-        <Link href="https://lu.ma/hexagoncreative.club" target="_blank">
+        <Link
+          href="https://lu.ma/calendar/manage/cal-ImiGep6vlDoTX3p"
+          target="_blank"
+        >
           <Calendar />
           Upcoming Events
         </Link>
