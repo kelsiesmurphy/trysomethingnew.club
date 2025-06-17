@@ -33,27 +33,52 @@ export function normalizePage(entry: any): Page {
   };
 }
 
+function isResolvedEntry(entry: any) {
+  return entry && typeof entry === "object" && "fields" in entry;
+}
+
 export function normalizeHeroComponent(entry: any): PageContentBlock {
   const { id, heading, subheading, buttons, image } = entry.fields;
+
+  console.log(buttons);
 
   return {
     type: "heroComponent",
     id: getText(id),
     heading: getText(heading),
     subheading: subheading ? getText(subheading) : undefined,
-    buttons: (buttons ?? []).map((btn: any) => ({
-      id: getText(btn.fields.id),
-      text: getText(btn.fields.text),
-      url: btn.fields.url ? getText(btn.fields.url) : undefined,
-      variant: btn.fields.variant ? getText(btn.fields.variant) : undefined,
-    })),
-    image: image && {
-      title: getText(image.fields.title),
-      description: getText(image.fields.description),
-      url: image.fields.file?.url ?? "",
-      width: image.fields.file?.details?.image?.width ?? undefined,
-      height: image.fields.file?.details?.image?.height ?? undefined,
-    },
+    buttons: (buttons ?? []).flatMap((btn: any) => {
+      if (!btn.fields?.buttons) return [];
+
+      return btn.fields.buttons.map((button: any) => ({
+        id: getText(button.fields.id),
+        text: getText(button.fields.text),
+        url: button.fields.url ? getText(button.fields.url) : undefined,
+        icon:
+          button.fields.icon && isResolvedEntry(button.fields.icon)
+            ? {
+                title: getText(button.fields.icon.fields.title),
+                description: getText(button.fields.icon.fields.description),
+                url: button.fields.icon.fields.file.url,
+                width: button.fields.icon.fields.file.details.image?.width,
+                height: button.fields.icon.fields.file.details.image?.height,
+              }
+            : undefined,
+        variant: button.fields.variant
+          ? getText(button.fields.variant)
+          : undefined,
+      }));
+    }),
+    image:
+      image && isResolvedEntry(image)
+        ? {
+            title: getText(image.fields.title),
+            description: getText(image.fields.description),
+            url: image.fields.file.url,
+            width: image.fields.file.details.image?.width,
+            height: image.fields.file.details.image?.height,
+          }
+        : undefined,
   };
 }
 
@@ -68,11 +93,15 @@ export function normalizeTextComponent(entry: any): PageContentBlock {
     heading,
     subheading,
     body,
-    additionalComponents: (additionalComponents ?? []).map((btn: any) => ({
-      id: getText(btn.fields.id),
-      text: getText(btn.fields.text),
-      url: btn.fields.url ? getText(btn.fields.url) : undefined,
-      variant: btn.fields.variant ? getText(btn.fields.variant) : undefined,
-    })),
+    additionalComponents: (additionalComponents ?? [])
+      .filter(isResolvedEntry)
+      .map(
+        (btn: { fields: { id: any; text: any; url: any; variant: any } }) => ({
+          id: getText(btn.fields.id),
+          text: getText(btn.fields.text),
+          url: btn.fields.url ? getText(btn.fields.url) : undefined,
+          variant: btn.fields.variant ? getText(btn.fields.variant) : undefined,
+        })
+      ),
   };
 }

@@ -12,9 +12,20 @@ export const homePageMock: Page = {
       buttons: [
         {
           id: "mock-button-id",
-          text: "Mock Button",
+          text: "Secondary Button",
           url: "/mock",
+          variant: "outline",
+        },
+        {
+          id: "mock-button-id-2",
+          text: "Primary Button",
+          url: "/mock2",
           variant: "default",
+          icon: {
+            title: "Mock Icon",
+            description: "Mock icon description",
+            url: "//picsum.photos/16/16",
+          },
         },
       ],
       image: {

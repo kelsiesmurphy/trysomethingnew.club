@@ -1,6 +1,6 @@
 // types/content.ts
 
-export interface Button {
+export interface ButtonType {
   id: string;
   text: string;
   url?: string;
@@ -8,14 +8,13 @@ export interface Button {
     | "default"
     | "destructive"
     | "ghost"
-    | "icon"
     | "link"
     | "outline"
-    | "secondary"
-    | "with-icon";
+    | "secondary";
+  icon?: ImageAssetType;
 }
 
-export interface ImageAsset {
+export interface ImageAssetType {
   title: string;
   description?: string;
   url: string;
@@ -23,26 +22,26 @@ export interface ImageAsset {
   height?: number;
 }
 
-export interface HeroComponent {
+export interface HeroComponentType {
   type: "heroComponent";
   id?: string;
   heading: string;
   subheading?: string;
-  buttons?: Button[];
-  image?: ImageAsset;
+  buttons?: ButtonType[];
+  image?: ImageAssetType;
 }
 
-export interface TextComponent {
+export interface TextComponentType {
   type: "textComponent";
   id: string;
   sectionName?: string;
   heading?: string;
   subheading?: string;
-  body: unknown; // You can use Contentful's RichText type here if needed
-  additionalComponents?: Button[];
+  body: unknown;
+  additionalComponents?: ButtonType[];
 }
 
-export type PageContentBlock = HeroComponent | TextComponent;
+export type PageContentBlock = HeroComponentType | TextComponentType;
 
 export interface Page {
   title: string;

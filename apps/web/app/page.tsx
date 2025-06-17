@@ -1,9 +1,6 @@
-// app/page.tsx or wherever this is
-
 import CMSError from "@/components/cms-error";
 import { getPageBySlug } from "@/lib/contentful/queries";
 import Hero from "@/components/hero";
-import { PageContentBlock } from "@/lib/contentful/simplified-types";
 import { findComponentById } from "@/lib/contentful/helpers";
 
 export default async function Page() {
