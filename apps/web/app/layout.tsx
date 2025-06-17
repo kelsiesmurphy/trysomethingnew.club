@@ -22,7 +22,9 @@ export default function RootLayout({
         <main className="flex flex-col items-center">
           <LenisWrapper>
             <Header />
-            <Providers>{children}</Providers>
+            <Providers>
+              <div id="main-content">{children}</div>
+            </Providers>
           </LenisWrapper>
         </main>
         {process.env.NODE_ENV === "development" && <DevTools />}
