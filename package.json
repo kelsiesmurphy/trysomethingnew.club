@@ -30,5 +30,12 @@
       "brace-expansion@>=1.0.0 <=1.1.11": ">=1.1.12",
       "brace-expansion@>=2.0.0 <=2.0.1": ">=2.0.2"
     }
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.1.1",
+    "lucide-react": "^0.475.0",
+    "react-hook-form": "^7.58.1",
+    "sonner": "^2.0.5",
+    "zod": "^3.25.67"
   }
 }

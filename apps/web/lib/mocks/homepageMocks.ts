@@ -1,4 +1,4 @@
-import { Page } from "@/lib/contentful/simplified-types";
+import { Page } from "@/lib/contentful/types";
 
 export const homePageMock: Page = {
   title: "Mock Homepage",

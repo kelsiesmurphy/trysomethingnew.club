@@ -1,4 +1,4 @@
-import { HeroComponentType } from "@/lib/contentful/simplified-types";
+import { HeroComponentType } from "@/lib/contentful/types";
 import Image from "next/image";
 import CTAButtons from "./cta-buttons";
 
