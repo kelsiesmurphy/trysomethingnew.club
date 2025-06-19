@@ -1,5 +1,5 @@
 import "@workspace/ui/globals.css";
-import "../styles/fonts.css";
+import "../../styles/fonts.css";
 import { Providers } from "@/components/providers";
 import Plausible from "@/lib/plausible";
 import DevTools from "@workspace/ui/components/dev-tools";
