@@ -6,6 +6,8 @@ import DevTools from "@workspace/ui/components/dev-tools";
 import SkipToContent from "@/components/skip-to-content";
 import Header from "@/components/header/header";
 import LenisWrapper from "@/components/lenis-wrapper";
+import Footer from "@/components/footer";
+import { Toaster } from "@workspace/ui/components/sonner";
 
 export default function RootLayout({
   children,
@@ -25,6 +27,8 @@ export default function RootLayout({
             <Providers>
               <div id="main-content">{children}</div>
             </Providers>
+            <Toaster />
+            <Footer />
           </LenisWrapper>
         </main>
         {process.env.NODE_ENV === "development" && <DevTools />}
