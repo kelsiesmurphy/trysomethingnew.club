@@ -3,8 +3,8 @@ import { Page } from "@/lib/contentful/types";
 export const homePageMock: Page = {
   title: "Mock Homepage",
   slug: "/",
-  pageContent: [
-    {
+  sections: {
+    hero: {
       type: "heroComponent",
       id: "homepage-hero",
       heading: "Mock Hero Heading",
@@ -34,7 +34,7 @@ export const homePageMock: Page = {
         url: "//picsum.photos/1216/255",
       },
     },
-    {
+    aboutUs: {
       type: "textComponent",
       id: "homepage-about-us",
       sectionName: "About Us",
@@ -56,7 +56,7 @@ export const homePageMock: Page = {
         ],
       },
     },
-    {
+    whyJoinUs: {
       type: "textComponent",
       id: "homepage-why-join-us",
       sectionName: "Why Join Us",
@@ -85,7 +85,7 @@ export const homePageMock: Page = {
         },
       ],
     },
-    {
+    newsletter: {
       type: "textComponent",
       id: "homepage-newsletter-cta",
       sectionName: "Newsletter CTA",
@@ -106,5 +106,5 @@ export const homePageMock: Page = {
         ],
       },
     },
-  ],
+  },
 };

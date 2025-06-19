@@ -46,6 +46,8 @@ export interface Page {
   slug: string;
   sections: {
     hero?: HeroComponentType;
+    aboutUs?: TextComponentType;
+    whyJoinUs?: TextComponentType;
     newsletter?: TextComponentType;
   };
 }
