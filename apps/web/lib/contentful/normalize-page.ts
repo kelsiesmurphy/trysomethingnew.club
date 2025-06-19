@@ -1,43 +1,27 @@
-import { Page, PageContentBlock } from "@/lib/contentful/simplified-types";
+import { HeroComponentType, TextComponentType } from "@/lib/contentful/types";
 
-// Utility to safely extract text from localized or plain strings
+export interface NormalizedPage {
+  title: string;
+  slug: string;
+  sections: {
+    hero?: HeroComponentType;
+    newsletter?: TextComponentType;
+    // features?: FeaturesComponentType;
+    // callToAction?: CallToActionComponentType;
+  };
+}
+
 export function getText(field: any): string {
   if (typeof field === "string") return field;
   if (field && typeof field === "object") return field["en-GB"] || "";
   return "";
 }
 
-export function normalizePage(entry: any): Page {
-  const { title, slug, pageContent } = entry.fields;
-
-  return {
-    title: getText(title),
-    slug: getText(slug ?? "/"),
-    pageContent: (pageContent ?? []).map((block: any): PageContentBlock => {
-      const contentType = block?.sys?.contentType?.sys?.id;
-
-      switch (contentType) {
-        case "heroComponent":
-          return normalizeHeroComponent(block);
-        case "textComponent":
-          return normalizeTextComponent(block);
-        default:
-          console.warn("Unknown component type:", contentType);
-          return {
-            type: "textComponent",
-            id: "unknown",
-            body: { nodeType: "document", content: [] },
-          };
-      }
-    }),
-  };
-}
-
 function isResolvedEntry(entry: any) {
   return entry && typeof entry === "object" && "fields" in entry;
 }
 
-export function normalizeHeroComponent(entry: any): PageContentBlock {
+export function normalizeHeroComponent(entry: any): HeroComponentType {
   const { id, heading, subheading, buttons, image } = entry.fields;
 
   return {
@@ -80,7 +64,7 @@ export function normalizeHeroComponent(entry: any): PageContentBlock {
   };
 }
 
-export function normalizeTextComponent(entry: any): PageContentBlock {
+export function normalizeTextComponent(entry: any): TextComponentType {
   const { id, sectionName, heading, subheading, body, additionalComponents } =
     entry.fields;
 
@@ -101,5 +85,36 @@ export function normalizeTextComponent(entry: any): PageContentBlock {
           variant: btn.fields.variant ? getText(btn.fields.variant) : undefined,
         })
       ),
+  };
+}
+
+export function normalizePage(entry: any): NormalizedPage {
+  const { title, slug, pageContent } = entry.fields;
+
+  const sections: NormalizedPage["sections"] = {};
+
+  for (const block of pageContent ?? []) {
+    const type = block?.sys?.contentType?.sys?.id;
+    const id = getText(block.fields.id);
+
+    switch (type) {
+      case "heroComponent":
+        if (id === "homepage-hero") {
+          sections.hero = normalizeHeroComponent(block);
+        }
+        break;
+      case "textComponent":
+        if (id === "homepage-newsletter-cta") {
+          sections.newsletter = normalizeTextComponent(block);
+        }
+        break;
+      // Add more as needed
+    }
+  }
+
+  return {
+    title: getText(title),
+    slug: getText(slug ?? "/"),
+    sections,
   };
 }

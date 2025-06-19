@@ -1,32 +1,19 @@
-import { getPageBySlug } from "@/lib/contentful/queries";
-import { findComponentById } from "@/lib/contentful/helpers";
 import Hero from "@/components/hero";
 import Events from "@/components/events";
 import Newsletter from "@/components/newsletter";
 import CMSError from "@/components/cms-error";
+import { getPageContent } from "@/lib/contentful/get-page-content";
 
 export default async function Page() {
-  const page = await getPageBySlug("/");
+  const page = await getPageContent("/");
 
   if (!page) {
     return <CMSError />;
   }
 
-  const heroEntry = findComponentById(
-    page.pageContent,
-    "homepage-hero",
-    "heroComponent"
-  );
-
-  const newsletterEntry = findComponentById(
-    page.pageContent,
-    "homepage-newsletter-cta",
-    "textComponent"
-  );
-
   return (
     <div className="flex flex-col min-h-svh">
-      {heroEntry && <Hero content={heroEntry} />}
+      {page.sections.hero && <Hero content={page.sections.hero} />}
       <Events />
       {/* <Features
         content={{ fields: featuresContent, contentTypeId: "features" }}
@@ -34,7 +21,9 @@ export default async function Page() {
       <CallToAction
         content={{ fields: ctaContent, contentTypeId: "callToAction" }}
       /> */}
-      {newsletterEntry && <Newsletter content={newsletterEntry} />}
+      {page.sections.newsletter && (
+        <Newsletter content={page.sections.newsletter} />
+      )}
     </div>
   );
 }

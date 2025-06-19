@@ -1,6 +1,6 @@
 import React from "react";
 import { NewsletterForm } from "./newsletter-form";
-import { TextComponentType } from "@/lib/contentful/simplified-types";
+import { TextComponentType } from "@/lib/contentful/types";
 
 export default function Newsletter({
   content,

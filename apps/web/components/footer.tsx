@@ -3,6 +3,7 @@ import InstagramIcon from "./icons/instagram";
 import BlueskyIcon from "./icons/bluesky";
 import Link from "next/link";
 import { Mail } from "lucide-react";
+import { brand } from "@workspace/ui/lib/constants/brand";
 
 export default function Footer() {
   return (
@@ -10,31 +11,33 @@ export default function Footer() {
       <hr />
       <div className="py-8 text-sm text-muted-foreground flex justify-between items-center">
         <div className="flex gap-2 items-center">
-          <p>© {new Date().getFullYear()} trysomethingnew.club</p>
+          <p>
+            © {new Date().getFullYear()} {brand.website}
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="ghost" size="icon" asChild>
             <Link
-              href="mailto:trysomethingnew-support@proton.me"
-              aria-label="Email us at trysomethingnew-support@proton.me"
+              href={`mailto:${brand.email}`}
+              aria-label={`Email us at ${brand.email}`}
             >
               <Mail />
             </Link>
           </Button>
           <Button size="icon" variant="ghost" asChild>
             <Link
-              href="https://www.instagram.com/trysomethingnew.club/"
+              href={brand.instagram}
               target="_blank"
-              aria-label="Follow Try Something New Club on Instagram"
+              aria-label={`Follow ${brand.name} on Instagram`}
             >
               <InstagramIcon />
             </Link>
           </Button>
           <Button size="icon" variant="ghost" asChild>
             <Link
-              href="https://bsky.app/profile/trysomethingnew.club"
+              href={brand.bluesky}
               target="_blank"
-              aria-label="Follow Try Something New Club on Bluesky"
+              aria-label={`Follow ${brand.name} on Bluesky`}
             >
               <BlueskyIcon />
             </Link>

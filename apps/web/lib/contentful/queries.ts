@@ -1,10 +1,11 @@
 import { contentfulClient } from "./client";
 import { homePageMock } from "@/lib/mocks/homepageMocks";
-import { normalizePage } from "@/lib/contentful/normalizePage";
-import { Page } from "@/lib/contentful/simplified-types";
-import { TypePageSkeleton } from "./types";
+import { normalizePage } from "@/lib/contentful/normalize-page";
+import { Page } from "@/lib/contentful/types";
 
-export const getPageBySlug = async (slug: string): Promise<Page | null> => {
+export const getNormalizedPageBySlug = async (
+  slug: string
+): Promise<Page | null> => {
   const useCMS = process.env.USE_CMS === "true";
 
   if (!useCMS) {
@@ -13,7 +14,7 @@ export const getPageBySlug = async (slug: string): Promise<Page | null> => {
   }
 
   try {
-    const response = await contentfulClient.getEntries<TypePageSkeleton>({
+    const response = await contentfulClient.getEntries({
       content_type: "page",
       "fields.slug": slug,
       include: 10,
