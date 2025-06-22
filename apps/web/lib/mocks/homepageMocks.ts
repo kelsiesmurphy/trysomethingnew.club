@@ -56,7 +56,7 @@ export const homePageMock: Page = {
         ],
       },
     },
-    whyJoinUs: {
+    callToAction: {
       type: "textComponent",
       id: "homepage-why-join-us",
       sectionName: "Why Join Us",
@@ -79,9 +79,20 @@ export const homePageMock: Page = {
       additionalComponents: [
         {
           id: "mock-button-id",
-          text: "Another Button",
-          url: "/another",
-          variant: "link",
+          text: "Secondary Button",
+          url: "/mock",
+          variant: "outline",
+        },
+        {
+          id: "mock-button-id-2",
+          text: "Primary Button",
+          url: "/mock2",
+          variant: "default",
+          icon: {
+            title: "Mock Icon",
+            description: "Mock icon description",
+            url: "//picsum.photos/16/16",
+          },
         },
       ],
     },

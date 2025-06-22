@@ -5,9 +5,10 @@ export interface NormalizedPage {
   slug: string;
   sections: {
     hero?: HeroComponentType;
+    aboutUs?: TextComponentType;
     newsletter?: TextComponentType;
+    callToAction?: TextComponentType;
     // features?: FeaturesComponentType;
-    // callToAction?: CallToActionComponentType;
   };
 }
 
@@ -75,16 +76,28 @@ export function normalizeTextComponent(entry: any): TextComponentType {
     heading,
     subheading,
     body,
-    additionalComponents: (additionalComponents ?? [])
-      .filter(isResolvedEntry)
-      .map(
-        (btn: { fields: { id: any; text: any; url: any; variant: any } }) => ({
-          id: getText(btn.fields.id),
-          text: getText(btn.fields.text),
-          url: btn.fields.url ? getText(btn.fields.url) : undefined,
-          variant: btn.fields.variant ? getText(btn.fields.variant) : undefined,
-        })
-      ),
+    additionalComponents: (additionalComponents ?? []).flatMap((btn: any) => {
+      if (!btn.fields?.buttons) return [];
+
+      return btn.fields.buttons.map((button: any) => ({
+        id: getText(button.fields.id),
+        text: getText(button.fields.text),
+        url: button.fields.url ? getText(button.fields.url) : undefined,
+        icon:
+          button.fields.icon && isResolvedEntry(button.fields.icon)
+            ? {
+                title: getText(button.fields.icon.fields.title),
+                description: getText(button.fields.icon.fields.description),
+                url: button.fields.icon.fields.file.url,
+                width: button.fields.icon.fields.file.details.image?.width,
+                height: button.fields.icon.fields.file.details.image?.height,
+              }
+            : undefined,
+        variant: button.fields.variant
+          ? getText(button.fields.variant)
+          : undefined,
+      }));
+    }),
   };
 }
 
@@ -103,12 +116,20 @@ export function normalizePage(entry: any): NormalizedPage {
           sections.hero = normalizeHeroComponent(block);
         }
         break;
-      case "textComponent":
-        if (id === "homepage-newsletter-cta") {
-          sections.newsletter = normalizeTextComponent(block);
+      case "textComponent": {
+        switch (id) {
+          case "homepage-about-us":
+            sections.aboutUs = normalizeTextComponent(block);
+            break;
+          case "homepage-why-join-us":
+            sections.callToAction = normalizeTextComponent(block);
+            break;
+          case "homepage-newsletter-cta":
+            sections.newsletter = normalizeTextComponent(block);
+            break;
         }
         break;
-      // Add more as needed
+      }
     }
   }
 

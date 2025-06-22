@@ -1,6 +1,5 @@
 import { ButtonType } from "@/lib/contentful/types";
 import { Button } from "@workspace/ui/components/button";
-import { Calendar } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 

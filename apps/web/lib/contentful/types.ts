@@ -35,7 +35,7 @@ export interface TextComponentType {
   sectionName?: string;
   heading?: string;
   subheading?: string;
-  body: unknown;
+  body: any;
   additionalComponents?: ButtonType[];
 }
 
@@ -47,7 +47,7 @@ export interface Page {
   sections: {
     hero?: HeroComponentType;
     aboutUs?: TextComponentType;
-    whyJoinUs?: TextComponentType;
+    callToAction?: TextComponentType;
     newsletter?: TextComponentType;
   };
 }
