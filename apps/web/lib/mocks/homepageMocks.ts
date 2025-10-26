@@ -7,39 +7,41 @@ export const homePageMock: Page = {
     hero: {
       type: "heroComponent",
       id: "homepage-hero",
-      heading: "Mock Hero Heading",
-      subheading: "Mock Hero Subheading",
+      heading: "Try something new every month.",
+      subheading:
+        "— Each month, we meet up to learn something unexpected, useful, interesting, or just plain fun. No experience needed, just curiosity.",
       buttons: [
         {
-          id: "mock-button-id",
-          text: "Secondary Button",
-          url: "/mock",
+          id: "about-us-button",
+          text: "About Us",
+          url: "about-us",
           variant: "outline",
         },
         {
-          id: "mock-button-id-2",
-          text: "Primary Button",
-          url: "/mock2",
+          id: "upcoming-events-button",
+          text: "Upcoming Events",
+          url: "events",
           variant: "default",
           icon: {
-            title: "Mock Icon",
-            description: "Mock icon description",
-            url: "//picsum.photos/16/16",
+            title: "Calendar Icon",
+            description: "Calendar icon",
+            url: "/mocks/calendar.svg",
           },
         },
       ],
       image: {
-        title: "Mock Image Title",
-        description: "Mock image description",
-        url: "//picsum.photos/1216/255",
+        title: "Glasgow Line Art",
+        description:
+          "A line art drawing of the Glasgow City skyline depicting various landmarks from the city.",
+        url: "/mocks/glasgow.png",
       },
     },
     aboutUs: {
       type: "textComponent",
       id: "homepage-about-us",
       sectionName: "About Us",
-      heading: "Mock Section Heading",
-      subheading: "Mock Section Subheading",
+      heading: "Our mission is to bring people together",
+      subheading: "What is Try Something New Club exactly?",
       body: {
         nodeType: "document",
         content: [
@@ -48,7 +50,8 @@ export const homePageMock: Page = {
             content: [
               {
                 nodeType: "text",
-                value: "This is mock body text for the About Us section.",
+                value:
+                  "**Curious minds thrive together.** Try Something New Club is a Glasgow-based monthly meetup for anyone who loves learning new skills—whether you're picking up something brand new or deepening something familiar. Each session is a chance to explore, experiment, and grow in good company. No pressure to perform, no need to be an expert—just a shared space to try things out, meet like-minded people, and enjoy the process.",
                 marks: [],
               },
             ],
@@ -60,7 +63,7 @@ export const homePageMock: Page = {
       type: "textComponent",
       id: "homepage-why-join-us",
       sectionName: "Why Join Us",
-      heading: "Another Mock Heading",
+      heading: "Why join us?",
       body: {
         nodeType: "document",
         content: [
@@ -69,7 +72,8 @@ export const homePageMock: Page = {
             content: [
               {
                 nodeType: "text",
-                value: "Additional mock body content goes here.",
+                value:
+                  "**This isn't just about networking** — it's about doing. Instead of awkward small talk, you'll spend the session actually learning, practising, or improving a skill, alongside people who are just as curious and motivated as you. Whether you're trying something completely new or getting better at something you've started, it's a space to focus, explore, and keep your curiosity alive.",
                 marks: [],
               },
             ],
@@ -78,10 +82,21 @@ export const homePageMock: Page = {
       },
       additionalComponents: [
         {
-          id: "mock-button-id",
-          text: "Another Button",
-          url: "/another",
-          variant: "link",
+          id: "about-us-button",
+          text: "About Us",
+          url: "about-us",
+          variant: "outline",
+        },
+        {
+          id: "upcoming-events-button",
+          text: "Upcoming Events",
+          url: "events",
+          variant: "default",
+          icon: {
+            title: "Calendar Icon",
+            description: "Calendar icon",
+            url: "/mocks/calendar.svg",
+          },
         },
       ],
     },
@@ -89,7 +104,7 @@ export const homePageMock: Page = {
       type: "textComponent",
       id: "homepage-newsletter-cta",
       sectionName: "Newsletter CTA",
-      heading: "Mock Newsletter Heading",
+      heading: "Want to stay notified?",
       body: {
         nodeType: "document",
         content: [
@@ -98,7 +113,8 @@ export const homePageMock: Page = {
             content: [
               {
                 nodeType: "text",
-                value: "Mock text for newsletter call-to-action.",
+                value:
+                  "No spam. Just the latest events as they become available, as well as any other information we need to share with you.",
                 marks: [],
               },
             ],

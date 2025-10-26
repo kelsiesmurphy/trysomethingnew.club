@@ -1,6 +1,7 @@
 import { HeroComponentType } from "@/lib/contentful/types";
 import Image from "next/image";
 import CTAButtons from "./cta-buttons";
+import { getImageUrl } from "@/lib/contentful/get-image-url";
 
 export default function Hero({ content }: { content: HeroComponentType }) {
   return (
@@ -17,7 +18,7 @@ export default function Hero({ content }: { content: HeroComponentType }) {
       <div className="overflow-hidden w-full object-cover">
         <Image
           priority
-          src={`https:${content.image?.url}`}
+          src={content.image?.url ? getImageUrl(content.image?.url) : ""}
           height={516}
           width={1400}
           className="object-cover overflow-hidden rounded-lg"

@@ -3,6 +3,7 @@ import { Button } from "@workspace/ui/components/button";
 import { Calendar } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/contentful/get-image-url";
 
 export default async function CTAButtons({
   content,
@@ -22,7 +23,11 @@ export default async function CTAButtons({
             {buttonContent.icon && (
               <Image
                 priority
-                src={`https:${buttonContent.icon?.url}`}
+                src={
+                  buttonContent.icon?.url
+                    ? getImageUrl(buttonContent.icon?.url)
+                    : ""
+                }
                 height={16}
                 width={16}
                 alt={buttonContent.icon?.title || "Button image"}
