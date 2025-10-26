@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const isProduction = process.env.NODE_ENV === "production";
-  const showComingSoon = process.env.SHOW_COMING_SOON === "true";
+  const showComingSoon = process.env.NEXT_PUBLIC_SHOW_COMING_SOON === "true";
 
   const pathname = request.nextUrl.pathname;
   const isComingSoonPage = pathname.startsWith("/coming-soon");

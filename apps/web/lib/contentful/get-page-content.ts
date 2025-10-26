@@ -3,7 +3,7 @@ import { homePageMock } from "../mocks/homepageMocks";
 import { Page } from "./types";
 
 export async function getPageContent(slug: string): Promise<Page> {
-  const useCMS = process.env.USE_CMS === "true";
+  const useCMS = process.env.NEXT_PUBLIC_USE_CMS === "true";
 
   if (useCMS) {
     const page = await getNormalizedPageBySlug(slug);

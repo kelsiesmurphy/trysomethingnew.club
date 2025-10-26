@@ -6,7 +6,7 @@ import { Page } from "@/lib/contentful/types";
 export const getNormalizedPageBySlug = async (
   slug: string
 ): Promise<Page | null> => {
-  const useCMS = process.env.USE_CMS === "true";
+  const useCMS = process.env.NEXT_PUBLIC_USE_CMS === "true";
 
   if (!useCMS) {
     console.warn("Using fallback content for slug:", slug);
